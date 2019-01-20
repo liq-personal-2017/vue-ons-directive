@@ -1,10 +1,11 @@
 <template>
     <div>
-        <input v-if="condition" type="text" v-model="text">
+        <input
+            v-if="condition"
+            type="text"
+            v-model="text"
+        >
         {{text}}
-        <br>
-        <button @click="condition = !condition">click3</button>
-        <l-child v-if="condition" ref="child"></l-child>
     </div>
 </template>
 <script>
@@ -16,12 +17,12 @@ export default {
     name: "LDemo",
     data() {
         return {
-            text:'123',
+            text: "123",
             condition: true
         };
     },
-    ons: {
-        ref: "child"
+    beforeUpdate() {
+        console.log("beforeUpdate");
     }
 };
 </script>

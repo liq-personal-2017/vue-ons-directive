@@ -1,9 +1,6 @@
 <template>
     <div id="app">
-        <l-demo
-            v-if="condition"
-            v-ons:click="bindsOnclick"
-        >
+        <l-demo v-ons:click="{handler:bindsOnclick,selector:'input'}">
         </l-demo>
         <button @click="condition = !condition">click</button>
     </div>
