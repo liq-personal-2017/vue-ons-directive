@@ -1,7 +1,9 @@
+// 找到我们要七搞八搞的实际元素
 function getRealEl(el, selector) {
     let realEl = el.querySelector(selector)
     return realEl
 }
+// 实际的绑一下事件
 function doBinding(el, binding) {
     const { arg, value, oldValue } = binding
     const { handler } = value
@@ -16,20 +18,19 @@ function doBinding(el, binding) {
     }
     off(realEl, arg, handler)
     on(realEl, arg, handler)
+    // 每次都更新一下， 避免当前层级元素组件把子元素干掉了（v-if指令之类的）， 元素会发生变化
     el.__ons_event = arg
     el.__ons_handler = handler
 }
-
+// 辅助函数
 function on(realEl, eventName, handler) {
     realEl.addEventListener(eventName, handler)
 }
-
+// 辅助函数
 function off(realEl, eventName, handler) {
-    if (handler) {
-        realEl.removeEventListener(eventName, handler)
-    }
+    realEl.removeEventListener(eventName, handler)
 }
-
+// 提供一个 install 函数给 vue.use 调用
 function install(Vue) {
     Vue.directive('ons', {
         bind(el, binding) {
